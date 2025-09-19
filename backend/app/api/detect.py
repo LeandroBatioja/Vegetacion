@@ -1,17 +1,18 @@
+# app/api/detect.py
 from fastapi import APIRouter, Query
-from app.services.bloom_service import detect_flowering
+from app.services.ndvi_service import get_ndvi_area
+from app.services.flower_service import detect_flower
 
-router = APIRouter()
+router = APIRouter(prefix="/api/detect", tags=["Floración"])
 
 @router.get("/flower")
-def flower_area(
-    bbox: str = Query(..., description="lon_min,lat_min,lon_max,lat_max"),
-    start: str = Query(..., description="YYYY-MM-DD"),
-    end: str = Query(..., description="YYYY-MM-DD"),
-    ndvi_threshold: float = Query(0.35)
+def flower_detection(
+    bbox: str = Query(..., description="min_lon,min_lat,max_lon,max_lat"),
+    start: str = Query(..., description="Fecha inicio YYYY-MM-DD"),
+    end: str = Query(..., description="Fecha fin YYYY-MM-DD"),
+    ndvi_threshold: float = Query(0.35, description="Umbral NDVI")
 ):
-    try:
-        data = detect_flowering(bbox, start, end, ndvi_threshold)
-        return {"flowering": data}
-    except Exception as e:
-        return {"error": str(e)}
+    bbox_list = list(map(float, bbox.split(",")))
+    ndvi_data = get_ndvi_area(bbox_list, start, end)
+    flowers = detect_flower(ndvi_data["points"], ndvi_threshold)
+    return flowers

@@ -1,16 +1,15 @@
+# app/api/ndvi.py
 from fastapi import APIRouter, Query
 from app.services.ndvi_service import get_ndvi_area
 
-router = APIRouter()
+router = APIRouter(prefix="/api/ndvi", tags=["NDVI"])
 
 @router.get("/area")
 def ndvi_area(
-    bbox: str = Query(..., description="lon_min,lat_min,lon_max,lat_max"),
-    start: str = Query(..., description="YYYY-MM-DD"),
-    end: str = Query(..., description="YYYY-MM-DD")
+    bbox: str = Query(..., description="min_lon,min_lat,max_lon,max_lat"),
+    start: str = Query(..., description="Fecha inicio YYYY-MM-DD"),
+    end: str = Query(..., description="Fecha fin YYYY-MM-DD")
 ):
-    try:
-        data = get_ndvi_area(bbox, start, end)
-        return {"ndvi": data}
-    except Exception as e:
-        return {"error": str(e)}
+    bbox_list = list(map(float, bbox.split(",")))
+    data = get_ndvi_area(bbox_list, start, end)
+    return data
