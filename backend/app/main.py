@@ -1,6 +1,6 @@
 # backend/app/main.py
 from fastapi import FastAPI
-from backend.app.api import ndvi, detect  
+from .api import ndvi, detect  
 
 app = FastAPI(title="API Vegetación NASA")
 
