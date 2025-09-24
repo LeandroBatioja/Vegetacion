@@ -9,3 +9,4 @@ matplotlib
 pydantic-settings
 streamlit
 folium
+streamlit-folium
