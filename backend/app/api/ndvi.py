@@ -1,6 +1,6 @@
 # app/api/ndvi.py
 from fastapi import APIRouter, Query
-from ..services.ndvi_service import get_ndvi_area
+from app.services.ndvi_service import get_ndvi_area
 
 router = APIRouter(prefix="/api/ndvi", tags=["NDVI"])
 
