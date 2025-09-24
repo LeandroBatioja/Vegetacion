@@ -10,3 +10,4 @@ pydantic-settings
 streamlit
 folium
 streamlit-folium
+plotly
