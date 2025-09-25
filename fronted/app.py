@@ -131,7 +131,7 @@ if tab_selection == "Mapa":
                 tooltip=folium.Tooltip(f"🌸 Floración NDVI: {f['ndvi']:.2f}", sticky=True, style="background-color:white; color:black; font-weight:bold;")
             ).add_to(m)
 
-    # Leyenda profesional
+    # Niveles de NDVI
     legend_bg = "#ffffff" if not dark_mode else "#2c2c2c"
     legend_color = "black" if not dark_mode else "white"
     legend_html = f'''
@@ -144,7 +144,7 @@ if tab_selection == "Mapa":
         color: {legend_color};
         border-radius: 8px;
         ">
-    <b>🔎 Leyenda</b><br>
+    <b>🔎 Niveles de NDVI</b><br>
     <span style="display:inline-block;width:16px;height:16px;background:#ff4c4c;margin-right:5px;"></span> Bajo (&lt;0.2)<br>
     <span style="display:inline-block;width:16px;height:16px;background:#ffa500;margin-right:5px;"></span> Medio (&lt;0.5)<br>
     <span style="display:inline-block;width:16px;height:16px;background:#2c6f3c;margin-right:5px;"></span> Alto (&ge;0.5)<br>
